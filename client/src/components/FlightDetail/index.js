@@ -29,13 +29,13 @@ const FlightDetail = ({flightResult, activeIndex, setActiveIndex})=>{
             </Accordion.Title>
             <Accordion.Content active={activeIndex === id}>
                 {/* Departure and returning */}
-                Departure: {durationFormater(itineraries[0].duration)}
+                <h3>Departure:</h3> {durationFormater(itineraries[0].duration)}
                 {itineraries[0].segments.length === 1?'Nonstop':`${itineraries[0].segments.length-1} stop`}
                 <SingleTrip itinerary={itineraries[0]}/>
                 {/* Return trip if there's more than 1 intinerary */}
                 {itineraries[1]?(
                     <>
-                        Return: {durationFormater(itineraries[1].duration)}
+                        <h3>Return:</h3> {durationFormater(itineraries[1].duration)}
                         {itineraries[1].segments.length === 1?'Nonstop':`${itineraries[1].segments.length-1} stop`}
                         <SingleTrip itinerary={itineraries[1]}/>
                     </>
