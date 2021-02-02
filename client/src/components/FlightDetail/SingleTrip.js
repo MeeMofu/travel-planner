@@ -5,7 +5,6 @@ const airports = require('airport-codes');
 
 const SingleTrip = ({itinerary})=>{
     const {segments: flights} = itinerary;
-    console.log(itinerary);
     return (
         <>
             {flights.map(flight =>{
@@ -16,7 +15,7 @@ const SingleTrip = ({itinerary})=>{
                         <p> {durationFormater(duration)}</p>
                         <p>{arrival.at}{' '}{airports.findWhere({ iata: arrival.iataCode }).get('name')}{arrival.terminal?`, terminal: ${arrival.terminal}`:''}</p>
                         <p>Aircraft code: {code} </p>
-                        
+                        <br />
                         
                     </div>
                 )

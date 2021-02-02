@@ -19,7 +19,7 @@ const Home = () =>{
             originLocationCode: 'SYD',
             destinationLocationCode: 'BKK',
             departureDate: '2021-08-01',
-            returnDate:'2021-08-14',
+            
             adults: '1',
             children: '2',
             travelClass: 'BUSINESS',
@@ -28,21 +28,13 @@ const Home = () =>{
         })
         .then(({data}) => {
             // console.log(data);
-            setSearchResult(data);
-            // const {id: tripId,itineraries,price: {grandTotal, currency},type} = data[0];
-            // const {duration: totalDuration, segments: flights} =itineraries[0];
-            // const {aircraft: {code}, departure, arrival, duration: flightDuration, id} = flights[0];
-            // console.log(tripId);
-            // console.log(totalDuration);
-            // console.log (flights);
-            // console.log (code);
-            // console.log (departure);
-            // console.log (arrival);
-            // console.log (flightDuration);
-            // console.log (id);
-            // console.log (grandTotal);
-            // console.log (currency);
-            // console.log (type);
+            // clean up duplicate price options, as the API has sorted the cheapest with shortest travel time option first
+            // duplicate option is redundant
+            const cleanedData = data.filter((option, index)=>(
+                index === 0 || ((index>0) && ((option.price.grandTotal!==data[index-1].price.grandTotal)||(option.validatingAirlineCodes[0]!==data[index-1].validatingAirlineCodes[0])))
+            ));
+
+            setSearchResult(cleanedData);
             
         }).catch((responseError) => {
             console.log(responseError);
