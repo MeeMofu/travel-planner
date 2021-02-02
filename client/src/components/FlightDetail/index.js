@@ -1,13 +1,14 @@
 import React from 'react';
 import {Accordion, Icon} from 'semantic-ui-react';
+import SingleTrip from './SingleTrip';
 import {durationFormater} from '../../utils/helpers';
-const airlines = require('airline-codes');
-const airports = require('airport-codes');
+
 
 
 const FlightDetail = ({flightResult, activeIndex, setActiveIndex})=>{
+    const airlines = require('airline-codes');
     const {id, itineraries, price: {grandTotal, currency},validatingAirlineCodes} = flightResult;
-    const {segments: flights, duration} = itineraries[0];
+    
     // const {aircraft: {code}, departure, arrival, duration: flightDuration, id} = flights
     const handleClick = (e,{index}) =>{
         const newIndex = (activeIndex === index)? -1 : index;
@@ -27,19 +28,15 @@ const FlightDetail = ({flightResult, activeIndex, setActiveIndex})=>{
             </Accordion.Title>
             <Accordion.Content active={activeIndex === id}>
                 {/* Departure and returning */}
-                {flights.map(flight =>{
-                    const {aircraft: {code}, departure, arrival, duration, id} = flight;
-                    return(
-                        <div key={`flight_${id}`}>
-                            <p>{departure.at}{' '}{airports.findWhere({ iata: departure.iataCode }).get('name')}, {departure.terminal?`terminal: ${departure.terminal}`:''}</p>
-                            <p> {durationFormater(duration)}</p>
-                            <p>{arrival.at}{' '}{airports.findWhere({ iata: arrival.iataCode }).get('name')}{arrival.terminal?`, terminal: ${arrival.terminal}`:''}</p>
-                            <p>Aircraft code: {code} </p>
-                               
-                            
-                        </div>
-                    )
-                })}
+                Departure: {durationFormater(itineraries[0].duration)}
+                <SingleTrip itinerary={itineraries[0]}/>
+                {/* Return trip if there's more than 1 intinerary */}
+                {itineraries[1]?(
+                    <>
+                        Returning: {durationFormater(itineraries[1].duration)}
+                        <SingleTrip itinerary={itineraries[1]}/>
+                    </>
+                ):''}
             </Accordion.Content>
         </>
         // <div className="card">
