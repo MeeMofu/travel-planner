@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { ApolloProvider } from '@apollo/react-hooks';
 import ApolloClient from 'apollo-boost';
 
-// import Home from "./pages/Home";
+import Home from "./pages/Home";
 // import Detail from "./pages/Detail";
 // import NoMatch from "./pages/NoMatch";
 // import Login from "./pages/Login";
@@ -11,12 +11,13 @@ import ApolloClient from 'apollo-boost';
 // import Nav from "./components/Nav";
 // import OrderHistory from "./pages/OrderHistory";
 
+
 const client = new ApolloClient({
   request: (operation) => {
     const token = localStorage.getItem('id_token')
     operation.setContext({
-      headers: {
-        authorization: token ? `Bearer ${token}` : ''
+      body: {
+        token: token ? token : ''
       }
     })
   },
@@ -28,7 +29,7 @@ function App() {
     <ApolloProvider client={client}>
       <Router>
         <div>
-         
+          <Home/>
         </div>
       </Router>
     </ApolloProvider>
