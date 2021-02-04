@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react";
 import Amadeus from 'amadeus';
 import SearchList from '../components/SearchList';
 import FlightSearchForm from '../components/FlightSearch';
-import {Modal, Button} from 'semantic-ui-react';
+import HotelSearchForm from '../components/HotelSearch';
 require('dotenv').config();
 
 const amadeus = new Amadeus({
@@ -16,7 +16,6 @@ const Home = () =>{
 
     const [searchResult, setSearchResult] = useState([]);
     const [isVisible, setVisible] = useState(false);
-    const [open, setOpen] = useState(false);
     useEffect(()=>{
       (searchResult.length)? setVisible(true): setVisible(false)
     },[searchResult]);
@@ -45,26 +44,20 @@ const Home = () =>{
     //         console.log(responseError);
     //     });
     // },[])
-    const inlineStyle = {
-        modal : {
-          height: 'auto',
-          top: 'auto',
-          left: 'auto',
-          bottom: 'auto',
-          right: 'auto',
-        }
-      };
+    
     return (
       <>
-        <Modal onClose={() => setOpen(false)}
+        {/* <Modal onClose={() => setOpen(false)}
           onOpen={() => setOpen(true)}
           open={open} style={inlineStyle.modal}
-          trigger={<Button>Search a Flight</Button> }>
+          trigger={<Button>Search a Hotel</Button> }>
               <Modal.Content>
-                  <FlightSearchForm amadeus={amadeus} setSearchResult={setSearchResult} setOpen={setOpen}/>
               </Modal.Content>
 
-        </Modal>
+        </Modal> */}
+          <FlightSearchForm amadeus={amadeus} setSearchResult={setSearchResult}/>
+
+        
 
           {isVisible?(<SearchList searchResult={searchResult} amadeus={amadeus}/>):(<></>)}
         </>

@@ -1,10 +1,10 @@
-import React, {useState, useEffect} from 'react';
-import { Form, Button, Message } from 'semantic-ui-react'
-import AirportSearch from './AiportSearch';
-import DateInput from './DateInput';
-import PassengerInput from './PassengerInput';
+import React, {useState} from 'react';
+import { Form, Button, Message, Modal } from 'semantic-ui-react'
+import AirportSearch from '../CustomFields/AiportSearch';
+import DateInput from '../CustomFields/DateInput';
+import NumberInput from '../CustomFields/NumberInput';
 
-const FlightSearchForm = ({amadeus, setSearchResult, setOpen})=>{
+const FlightSearchForm = ({amadeus, setSearchResult})=>{
     const [searchData, setSearchData] = useState({currencyCode:'USD'});
     // The object that'll hold all the query parameter
     const [isLoading, setLoading]=useState(false);
@@ -13,6 +13,18 @@ const FlightSearchForm = ({amadeus, setSearchResult, setOpen})=>{
     const [error,setError]=useState(false);
     const [noResult,setNoResult]=useState(false);
     // States to let user knows if there's any error
+
+    const [open, setOpen] = useState(false); // For Modal
+
+    const inlineStyle = {
+        modal : {
+          height: 'auto',
+          top: 'auto',
+          left: 'auto',
+          bottom: 'auto',
+          right: 'auto',
+        }
+      };
 
     const travelClass = [
         {key:'eco', text:'Economy', value:'ECONOMY'},
@@ -56,7 +68,12 @@ const FlightSearchForm = ({amadeus, setSearchResult, setOpen})=>{
 
     return (
         <>
-            <Form loading={isLoading} >
+        <Modal onClose={() => setOpen(false)}
+          onOpen={() => setOpen(true)}
+          open={open} style={inlineStyle.modal}
+          trigger={<Button>Search a Flight</Button> }>
+              <Modal.Content>
+                  <Form loading={isLoading} >
                 <AirportSearch type={'Origin'} name ={'originLocationCode'} 
                     searchData={searchData} setSearchData={setSearchData}
                     amadeus={amadeus}/>
@@ -80,12 +97,12 @@ const FlightSearchForm = ({amadeus, setSearchResult, setOpen})=>{
                     />
                 </Form.Group>
                 <Form.Group widths='equal'>
-                    <PassengerInput type={'Adult'} name = {'adults'}
+                    <NumberInput type={'Adult'} name = {'adults'}
                     searchData={searchData} setSearchData={setSearchData}
                     isRequired/>
-                    <PassengerInput type={'Children'} name = {'children'}
+                    <NumberInput type={'Children'} name = {'children'}
                     searchData={searchData} setSearchData={setSearchData}/>
-                    <PassengerInput type={'Infants'} name = {'infants'}
+                    <NumberInput type={'Infants'} name = {'infants'}
                     searchData={searchData} setSearchData={setSearchData}/>
                 </Form.Group>
                 {/* <Form.Group widths='equal'> */}
@@ -99,6 +116,10 @@ const FlightSearchForm = ({amadeus, setSearchResult, setOpen})=>{
                 {noResult?(<Message negative header='No matches' content="There's no flights that matches your criteria"/>):(<></>)}
                 <Form.Field control={Button} color = {'blue'} onClick={handleSubmit}>Submit</Form.Field>
             </Form>
+              </Modal.Content>
+
+        </Modal>
+            
             
         </>
     )

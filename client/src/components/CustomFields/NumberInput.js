@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {Form} from 'semantic-ui-react';
 
 
-const PassengerInput = ({type, name, searchData, setSearchData, isRequired}) => {
+const NumberInput = ({type, name, searchData, setSearchData, isRequired}) => {
     // Type is for the label, while name is for the field to be query
     // Once onBlur is triggered, the component will check if the input is valid, and then save into data query
     const [count,setCount]=useState('');
@@ -45,4 +45,4 @@ const PassengerInput = ({type, name, searchData, setSearchData, isRequired}) => 
     )
 }
 
-export default PassengerInput;
+export default NumberInput;
