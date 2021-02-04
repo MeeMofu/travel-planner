@@ -5,10 +5,14 @@ import DateInput from './DateInput';
 import PassengerInput from './PassengerInput';
 
 const FlightSearchForm = ({amadeus, setSearchResult, setOpen})=>{
-    
     const [searchData, setSearchData] = useState({currencyCode:'USD'});
+    // The object that'll hold all the query parameter
     const [isLoading, setLoading]=useState(false);
+    // State to display if the form is loading
+
     const [error,setError]=useState(false);
+    const [noResult,setNoResult]=useState(false);
+    // States to let user knows if there's any error
 
     const travelClass = [
         {key:'eco', text:'Economy', value:'ECONOMY'},
@@ -36,10 +40,13 @@ const FlightSearchForm = ({amadeus, setSearchResult, setOpen})=>{
                     const cleanedData = data.filter((option, index)=>(
                         index === 0 || ((index>0) && ((option.price.grandTotal!==data[index-1].price.grandTotal)||(option.validatingAirlineCodes[0]!==data[index-1].validatingAirlineCodes[0])))
                     ));
-    
-                    setSearchResult(cleanedData);
                     setLoading(false);
-                    setOpen(false);
+                    
+                    if (cleanedData.length) {
+                        setSearchResult(cleanedData);
+                        setOpen(false)
+                    }
+                    else setNoResult(true)
                 }).catch((responseError) => {
                     setLoading(false);
                     setError(true);
@@ -89,8 +96,10 @@ const FlightSearchForm = ({amadeus, setSearchResult, setOpen})=>{
                         onChange={saveOption}
                     />
                 {error?(<Message negative header='Bad Request' content='Please check your request'/>):(<></>)}
-                <Form.Field control={Button} onClick={handleSubmit}>Submit</Form.Field>
+                {noResult?(<Message negative header='No matches' content="There's no flights that matches your criteria"/>):(<></>)}
+                <Form.Field control={Button} color = {'blue'} onClick={handleSubmit}>Submit</Form.Field>
             </Form>
+            
         </>
     )
 }

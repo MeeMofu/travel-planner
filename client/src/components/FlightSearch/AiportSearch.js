@@ -27,7 +27,6 @@ const AirportSearch = ({type, name, amadeus, searchData, setSearchData})=>{
                 subType : 'AIRPORT'
             }).then(({data})=>{
                 if (data.length){
-                    console.log(data)
                     setError(false);
                     try {
                         // Try to if it can map the result
@@ -60,10 +59,10 @@ const AirportSearch = ({type, name, amadeus, searchData, setSearchData})=>{
         setSearchData({...searchData, [name]: value});
     }
     return (
-        <Form.Group widths='equal'>
-            <Form.Input 
-                fluid 
-                label={`${type} location`} 
+        <Form.Group >
+            <Form.Input  
+                width={4} 
+                label={`Find ${type} location`} 
                 value={searchTerm}
                 placeholder='Search airport'
                 onChange={handleChange}
@@ -72,7 +71,7 @@ const AirportSearch = ({type, name, amadeus, searchData, setSearchData})=>{
                 required
             />
             <Form.Select
-                fluid
+                width={12}
                 label={`${type} airport`}
                 options={options}
                 placeholder='Please select an option'

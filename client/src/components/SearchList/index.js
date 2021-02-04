@@ -12,7 +12,7 @@ const SearchList = ({searchResult}) =>{
 
     useEffect(()=>{
         setToBeDisplayed(searchResult.slice(searchOffset,searchOffset+5));
-
+        
     },[searchOffset,searchResult]);
 
     // useEffect(()=>{
