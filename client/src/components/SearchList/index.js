@@ -36,11 +36,16 @@ const SearchList = ({searchResult}) =>{
                     return <div />
             })}
         </Accordion>
-        <Pagination
-            activePage={activeButton}
-            onPageChange={handlePageClick}
-            totalPages={Math.ceil(searchResult.length/10)}
-          />
+        {(searchResult.length>5)?(
+            <Pagination
+                activePage={activeButton}
+                onPageChange={handlePageClick}
+                totalPages={Math.ceil(searchResult.length/10)}
+            />)
+            :
+            (<></>)
+        }
+        
        
     </div>
     );

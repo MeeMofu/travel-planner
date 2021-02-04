@@ -9,7 +9,6 @@ const FlightDetail = ({flightResult, activeIndex, setActiveIndex})=>{
     const airlines = require('airline-codes');
     const {id, itineraries, price: {grandTotal, currency},validatingAirlineCodes} = flightResult;
     
-    // const {aircraft: {code}, departure, arrival, duration: flightDuration, id} = flights
     const handleClick = (e,{index}) =>{
         const newIndex = (activeIndex === index)? -1 : index;
         setActiveIndex(newIndex);
@@ -42,11 +41,6 @@ const FlightDetail = ({flightResult, activeIndex, setActiveIndex})=>{
                 ):''}
             </Accordion.Content>
         </>
-        // <div className="card">
-        //     <div className="card-header row">
-        //         {grandTotal} {currency}
-        //     </div>
-        // </div>
     );
 
 }
