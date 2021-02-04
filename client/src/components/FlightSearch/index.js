@@ -67,61 +67,57 @@ const FlightSearchForm = ({amadeus, setSearchResult})=>{
     }
 
     return (
-        <>
         <Modal onClose={() => setOpen(false)}
           onOpen={() => setOpen(true)}
           open={open} style={inlineStyle.modal}
           trigger={<Button>Search a Flight</Button> }>
               <Modal.Content>
                   <Form loading={isLoading} >
-                <AirportSearch type={'Origin'} name ={'originLocationCode'} 
-                    searchData={searchData} setSearchData={setSearchData}
-                    amadeus={amadeus}/>
-                <AirportSearch type={'Destination'} name ={'destinationLocationCode'} 
-                    searchData={searchData} setSearchData={setSearchData}
-                    amadeus={amadeus}/>
-                <Form.Group widths='equal'>
-                    <DateInput type={'Departure'} name = {'departureDate'}
-                    searchData={searchData} setSearchData={setSearchData}
-                    isRequired/>
-                    <DateInput type={'Return'} name = {'returnDate'}
-                    searchData={searchData} setSearchData={setSearchData}/>
-                    <Form.Select
-                        fluid
-                        label={`Flight classes`}
-                        options={travelClass}
-                        name='travelClass'
-                        placeholder='Please select an option'
-                        onChange={saveOption}
-                        required
-                    />
-                </Form.Group>
-                <Form.Group widths='equal'>
-                    <NumberInput type={'Adult'} name = {'adults'}
-                    searchData={searchData} setSearchData={setSearchData}
-                    isRequired/>
-                    <NumberInput type={'Children'} name = {'children'}
-                    searchData={searchData} setSearchData={setSearchData}/>
-                    <NumberInput type={'Infants'} name = {'infants'}
-                    searchData={searchData} setSearchData={setSearchData}/>
-                </Form.Group>
-                {/* <Form.Group widths='equal'> */}
-                    
-                    <Form.Checkbox 
-                        name='nonStop' 
-                        label={`Nonstop flight`}
-                        onChange={saveOption}
-                    />
-                {error?(<Message negative header='Bad Request' content='Please check your request'/>):(<></>)}
-                {noResult?(<Message negative header='No matches' content="There's no flights that matches your criteria"/>):(<></>)}
-                <Form.Field control={Button} color = {'blue'} onClick={handleSubmit}>Submit</Form.Field>
-            </Form>
+                        <AirportSearch type={'Origin'} name ={'originLocationCode'} 
+                            searchData={searchData} setSearchData={setSearchData}
+                            amadeus={amadeus}/>
+                        <AirportSearch type={'Destination'} name ={'destinationLocationCode'} 
+                            searchData={searchData} setSearchData={setSearchData}
+                            amadeus={amadeus}/>
+                        <Form.Group widths='equal'>
+                            <DateInput type={'Departure'} name = {'departureDate'}
+                            searchData={searchData} setSearchData={setSearchData}
+                            isRequired/>
+                            <DateInput type={'Return'} name = {'returnDate'}
+                            searchData={searchData} setSearchData={setSearchData}/>
+                            <Form.Select
+                                fluid
+                                label={`Flight classes`}
+                                options={travelClass}
+                                name='travelClass'
+                                placeholder='Please select an option'
+                                onChange={saveOption}
+                                required
+                            />
+                        </Form.Group>
+                        <Form.Group widths='equal'>
+                            <NumberInput type={'Adult'} name = {'adults'}
+                            searchData={searchData} setSearchData={setSearchData}
+                            isRequired/>
+                            <NumberInput type={'Children'} name = {'children'}
+                            searchData={searchData} setSearchData={setSearchData}/>
+                            <NumberInput type={'Infants'} name = {'infants'}
+                            searchData={searchData} setSearchData={setSearchData}/>
+                        </Form.Group>
+                        {/* <Form.Group widths='equal'> */}
+                            
+                            <Form.Checkbox 
+                                name='nonStop' 
+                                label={`Nonstop flight`}
+                                onChange={saveOption}
+                            />
+                        {error?(<Message negative header='Bad Request' content='Please check your request'/>):(<></>)}
+                        {noResult?(<Message negative header='No matches' content="There's no flights that matches your criteria"/>):(<></>)}
+                        <Form.Field control={Button} color = {'blue'} onClick={handleSubmit}>Submit</Form.Field>
+                    </Form>
               </Modal.Content>
 
         </Modal>
-            
-            
-        </>
     )
 }
 
