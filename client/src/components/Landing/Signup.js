@@ -10,8 +10,8 @@ const LoginForm = ()=>{
 
     const [userFormData, setUserFormData] = useState({ username: '',email:'',password: '' });
 
-    // set loginUser as mutation
-    // const [loginUser, loginError] = useMutation(LOGIN);
+    // set signupUser as mutation
+    const [signupUser, loginError] = useMutation(ADD_USER);
 
     const [isLoading, setLoading]=useState(false);
 
@@ -38,21 +38,22 @@ const LoginForm = ()=>{
     const handleSubmit = async (e)=>{
         e.preventDefault();
         console.log(userFormData);
-        // setLoading(true);
-        // try {
-        //     const response = await loginUser(
-        //       { 
-        //         variables: {...userFormData}
-        //       });
+        setLoading(true);
+        try {
+            const response = await signupUser(
+              { 
+                variables: {...userFormData}
+              });
               
-        //     const token= response.data.login.token;
-        //     // console.log(token);
-        //     setOpen(false);
-        //     Auth.login(token);
-        // } catch (err) {
-        //     setLoading(false);
-        //     setShowAlert(true);
-        // }
+            const token= response.data.addUser.token;
+            console.log(token);
+            Auth.login(token);
+            setOpen(false);
+        } catch (err) {
+            console.log(err);
+            setLoading(false);
+            setShowAlert(true);
+        }
     }
     const handleInput = (event) => {
         const { name, value } = event.target;

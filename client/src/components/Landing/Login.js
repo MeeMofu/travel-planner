@@ -45,8 +45,8 @@ const LoginForm = ()=>{
               
             const token= response.data.login.token;
             // console.log(token);
-            setOpen(false);
             Auth.login(token);
+            setOpen(false);
         } catch (err) {
             setLoading(false);
             setShowAlert(true);
