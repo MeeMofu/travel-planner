@@ -52,7 +52,8 @@ const HotelSearchForm = ({amadeus, setSearchResult})=>{
 
     const rating = [2,3,4,5];
     const handleRate = (e,{rating})=>{
-        console.log(rating);
+        // console.log(rating);
+        // Will be added later
     }
 
     return (
