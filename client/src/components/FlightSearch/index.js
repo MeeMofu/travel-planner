@@ -56,7 +56,8 @@ const FlightSearchForm = ({amadeus, setSearchResult})=>{
                     
                     if (cleanedData.length) {
                         setSearchResult(cleanedData);
-                        setOpen(false)
+                        setError(false);
+                        setOpen(false);
                     }
                     else setNoResult(true)
                 }).catch((responseError) => {

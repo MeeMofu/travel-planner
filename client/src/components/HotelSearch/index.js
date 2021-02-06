@@ -38,6 +38,7 @@ const HotelSearchForm = ({amadeus, setSearchResult})=>{
                     
                     if (data.length) {
                         setSearchResult(data);
+                        setError(false);
                         setOpen(false);
                     }
                     else setNoResult(true)

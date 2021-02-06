@@ -13,8 +13,10 @@ const SearchList = ({searchResult}) =>{
 
     useEffect(()=>{
         setToBeDisplayed(searchResult.slice(searchOffset,searchOffset+5));
-        
-    },[searchOffset,searchResult]);
+    },[searchOffset]);
+    useEffect(()=>{
+        setOffset(0);
+    },[searchResult])
 
     // useEffect(()=>{
     //     console.log(toBeDisplayed);

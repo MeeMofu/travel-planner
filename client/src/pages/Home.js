@@ -22,10 +22,21 @@ const Home = () =>{
     
     return (
       <>
-        <FlightSearchForm amadeus={amadeus} setSearchResult={setSearchResult}/>
+        <nav className="navbar navbar-dark bg-dark d-flex justify-content-between align-items-end">
+          <h1 className="p-2 text-light m-0">Trip Planner</h1>
+          <button className=" text-light btn btn-dark" onClick={()=>{console.log('logged out')}} >Logout</button>
+        </nav>
+        <div className="container">
+          <div style={{marginTop : '80px'}} className={'jumbotron text-center'}>
+            <h1 className={"display-4"}>Trip Planner <span role={"img"} aria-label={"Memo"}>✈️</span></h1>
+            <h4 className={"mt-4"}>Plan your future trips now!</h4>
+            
+          </div>
+        </div>
+        {/* <FlightSearchForm amadeus={amadeus} setSearchResult={setSearchResult}/>
         <HotelSearchForm amadeus={amadeus} setSearchResult={setSearchResult}/>
 
-        {isVisible?(<SearchList searchResult={searchResult} amadeus={amadeus}/>):(<></>)}
+        {isVisible?(<SearchList searchResult={searchResult} amadeus={amadeus}/>):(<></>)} */}
       </>
     )
 }
