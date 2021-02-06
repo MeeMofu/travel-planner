@@ -24,6 +24,16 @@ const resolvers = {
 
       return { token, user };
     },
+    checkUsername: async (parent, {username})=>{
+      const checker = await User.findOne({ username });
+      if (checker) return true;
+      else return false
+    },
+    checkEmail: async (parent, {email})=>{
+      const checker = await User.findOne({ email });
+      if (checker) return true;
+      else return false
+    },
     
     login: async (parent, { username, password }) => {
       const user = await User.findOne({ username });

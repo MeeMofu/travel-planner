@@ -1,16 +1,17 @@
 import React, {useState} from 'react';
 import { Form, Button, Message, Modal, Input } from 'semantic-ui-react';
 import {useMutation} from '@apollo/react-hooks';
-import {LOGIN} from '../../utils/mutations';
+import {ADD_USER} from '../../utils/mutations';
+import SignUpCheck from '../CustomFields/signUpCheck';
 import Auth from '../../utils/auth';
 
 
 const LoginForm = ()=>{
 
-    const [userFormData, setUserFormData] = useState({ username: '',password: '' });
+    const [userFormData, setUserFormData] = useState({ username: '',email:'',password: '' });
 
     // set loginUser as mutation
-    const [loginUser, loginError] = useMutation(LOGIN);
+    // const [loginUser, loginError] = useMutation(LOGIN);
 
     const [isLoading, setLoading]=useState(false);
 
@@ -36,21 +37,22 @@ const LoginForm = ()=>{
 
     const handleSubmit = async (e)=>{
         e.preventDefault();
-        setLoading(true);
-        try {
-            const response = await loginUser(
-              { 
-                variables: {...userFormData}
-              });
+        console.log(userFormData);
+        // setLoading(true);
+        // try {
+        //     const response = await loginUser(
+        //       { 
+        //         variables: {...userFormData}
+        //       });
               
-            const token= response.data.login.token;
-            // console.log(token);
-            setOpen(false);
-            Auth.login(token);
-        } catch (err) {
-            setLoading(false);
-            setShowAlert(true);
-        }
+        //     const token= response.data.login.token;
+        //     // console.log(token);
+        //     setOpen(false);
+        //     Auth.login(token);
+        // } catch (err) {
+        //     setLoading(false);
+        //     setShowAlert(true);
+        // }
     }
     const handleInput = (event) => {
         const { name, value } = event.target;
@@ -61,16 +63,11 @@ const LoginForm = ()=>{
         <Modal onClose={() => setOpen(false)}
         onOpen={() => setOpen(true)}
         open={open} style={inlineStyle.modal}
-        trigger={<Button color = {'green'}> Login</Button> }>
+        trigger={<Button color = {'green'}> Signup</Button> }>
             <Modal.Content>
                 <Form loading={isLoading} >
-                    <Form.Field
-                        control={Input}
-                        label='Username'
-                        name='username'
-                        onChange={handleInput}
-                        placeholder='Username'
-                    />
+                    <SignUpCheck type='Username' name='username' userFormData={userFormData} setUserFormData={setUserFormData}/>
+                    <SignUpCheck type='Email' name='email' userFormData={userFormData} setUserFormData={setUserFormData}/>
                     <Form.Field
                         control={Input}
                         label='Password'
@@ -79,7 +76,7 @@ const LoginForm = ()=>{
                         onChange={handleInput}
                         placeholder='Password'
                     />
-                     {showAlert?(<Message negative header='Bad Request' content='Please check your creditials'/>):(<></>)}
+                     {showAlert?(<Message negative header='Signup failed' content='Please try again'/>):(<></>)}
                     <Form.Field fluid control={Button} color = {'blue'} onClick={handleSubmit}>Submit</Form.Field>
                 </Form>
             </Modal.Content>

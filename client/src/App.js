@@ -30,7 +30,7 @@ function App() {
     <ApolloProvider client={client}>
       <nav className="navbar navbar-dark bg-dark d-flex justify-content-between align-items-end">
           <h1 className="p-2 text-light m-0">Trip Planner</h1>
-          {Auth.loggedIn() && <button className=" text-light btn btn-dark" onClick={()=>{console.log('logged out')}} >Logout</button>}
+          {Auth.loggedIn() && <button className=" text-light btn btn-dark" onClick={Auth.logout} >Logout</button>}
           
       </nav>
       <Home/>
