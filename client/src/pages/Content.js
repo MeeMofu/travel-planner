@@ -8,10 +8,10 @@ import Auth from '../utils/auth';
 
 require('dotenv').config();
 
-const amadeus = new Amadeus({
-    clientId: process.env.REACT_APP_AMADEUS_CLIENT_ID,
-    clientSecret: process.env.REACT_APP_AMADEUS_CLIENT_SECRET
-  });
+// const amadeus = new Amadeus({
+//     clientId: process.env.REACT_APP_AMADEUS_CLIENT_ID,
+//     clientSecret: process.env.REACT_APP_AMADEUS_CLIENT_SECRET
+//   });
 
 
 
@@ -23,11 +23,16 @@ const Home = () =>{
     useEffect(()=>{
       (searchResult.length)? setVisible(true): setVisible(false)
     },[searchResult]);
+
+    useEffect(()=>{
+      console.log(process.env.REACT_APP_AMADEUS_CLIENT_ID);
+    },[]);
     
     return (
       <>
         
         {!Auth.loggedIn() && <Landing />}
+        {}
         {/* <FlightSearchForm amadeus={amadeus} setSearchResult={setSearchResult}/>
         <HotelSearchForm amadeus={amadeus} setSearchResult={setSearchResult}/>
 
