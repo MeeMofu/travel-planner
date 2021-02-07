@@ -4,7 +4,7 @@ import {useMutation} from '@apollo/react-hooks';
 import DateInput from '../CustomFields/DateInput';
 import {ADD_TRIP} from '../../utils/mutations';
 
-const TripForm = ()=>{
+const TripForm = ({userData, setUserData})=>{
 
     const [tripData, setTripData] = useState({});
     const [isLoading, setLoading]=useState(false);
@@ -29,14 +29,17 @@ const TripForm = ()=>{
         setLoading(true);
         if (tripData.title && tripData.endDate && tripData.startDate){
             try {
-                const response = await createTrip(
+                const {data: {addTrip}} = await createTrip(
                     {
                         variables:{tripData: tripData}
                     }
                 )
                 setLoading(false);
+                setOpen(false);
+                console.log(addTrip);
+                setUserData({...userData, ...addTrip});
             } catch (err){
-                alert("Something went wrong")
+                alert("Something went wrong");
             }
             // setTripData({...tripData,startDate: moment(tripData.startDate,"YYYY MM DD").format("ll")});
         }
