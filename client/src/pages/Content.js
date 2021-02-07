@@ -26,10 +26,10 @@ const Home = () =>{
       clientSecret: process.env.REACT_APP_AMADEUS_CLIENT_SECRET
     });
 
-    useEffect(()=>{
-      console.log(process.env.REACT_APP_AMADEUS_CLIENT_ID);
-      console.log(process.env.REACT_APP_AMADEUS_CLIENT_SECRET);
-    },[]);
+    // useEffect(()=>{
+    //   console.log(process.env.REACT_APP_AMADEUS_CLIENT_ID);
+    //   console.log(process.env.REACT_APP_AMADEUS_CLIENT_SECRET);
+    // },[]);
     
     return (
       <>

@@ -13,7 +13,6 @@ const UserCheck = ({type, name, userFormData, setUserFormData}) => {
     const [checkEmail] =useMutation(CHECK_EMAIL);
 
     const handleChange =(e,{value})=>{
-        setError(false);
         setField(value);
         setError(false);
     }
@@ -22,6 +21,8 @@ const UserCheck = ({type, name, userFormData, setUserFormData}) => {
         let check;
         if (type === 'Username') check = await checkUsername({variables:{[name]:field}})
         if (type === 'Email') check = await checkEmail({variables:{[name]:field}})
+        // Server will return a boolean, which is then used to check if the 
+
         if (check.data) {
             const result = check.data.checkUsername || check.data.checkEmail;
             if (!result) setUserFormData({...userFormData, [name]: field});

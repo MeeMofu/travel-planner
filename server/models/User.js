@@ -19,6 +19,12 @@ const userSchema = new Schema({
     required: true,
     minlength: 5
   },
+  trips: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Trip'
+    }
+  ]
 });
 
 // set up pre-save middleware to create password
