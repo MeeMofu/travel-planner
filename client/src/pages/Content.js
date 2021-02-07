@@ -3,6 +3,7 @@ import Amadeus from 'amadeus';
 import SearchList from '../components/SearchList';
 import FlightSearchForm from '../components/FlightSearch';
 import HotelSearchForm from '../components/HotelSearch';
+import CreateTrip from '../components/CreateTrip';
 import Landing from '../components/Landing';
 import Auth from '../utils/auth';
 
@@ -37,8 +38,13 @@ const Home = () =>{
         {!Auth.loggedIn() && <Landing />}
         {Auth.loggedIn() && (
           <>
-            <FlightSearchForm amadeus={amadeus} setSearchResult={setSearchResult}/>
-            <HotelSearchForm amadeus={amadeus} setSearchResult={setSearchResult}/>
+            <div className="container text-center mt-5">
+              <CreateTrip />
+
+            </div>
+            {/* <FlightSearchForm amadeus={amadeus} setSearchResult={setSearchResult}/>
+            <HotelSearchForm amadeus={amadeus} setSearchResult={setSearchResult}/> */}
+            
           </>
         )}
         {/* <FlightSearchForm amadeus={amadeus} setSearchResult={setSearchResult}/>

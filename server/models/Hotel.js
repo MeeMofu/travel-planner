@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const hotelSchema = new Schema({
-  airline: {
+  name: {
     type: String,
     required: true,
   },

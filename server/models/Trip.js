@@ -6,6 +6,7 @@ const tripSchema = new Schema({
   title: {
     type: String,
     required: true,
+    trim: true
   },
   startDate: {
     type: String,
@@ -17,7 +18,9 @@ const tripSchema = new Schema({
   },
   goal: {
     type: String,
-    required: true,
+    // required: true,
+    trim: true
+
   },
   flights: [
     {
@@ -44,6 +47,7 @@ tripSchema.virtual('totalCost').get(function(){
   let flightCost =0; let hotelCost=0;
   if (this.flights) flightCost = this.flights.reduce((a, b) => a + (b.cost || 0), 0);
   if (this.hotels) hotelCost = this.hotels.reduce((a, b) => a + (b.cost || 0), 0);
+  return flightCost + hotelCost;
 })
 
 const Trip = mongoose.model('Trip', tripSchema);

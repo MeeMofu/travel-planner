@@ -6,7 +6,27 @@ const typeDefs = gql`
     title: String!
     startDate: String!
     endDate: String!
-    goal: String!
+    goal: String
+  }
+
+  type Flight {
+    _id: ID
+    airline: String
+    departure: String
+    return: String
+    stops: Int
+    duration: String
+    cost: Int
+    people: Int
+  }
+
+  type Hotel {
+    _id: ID
+    name: String
+    startDate: String
+    endDate: String
+    cost: Int
+    rooms: Int
   }
 
   type Trip {
@@ -15,6 +35,9 @@ const typeDefs = gql`
     startDate: String
     endDate: String
     goal: String
+    flights: [Flight]
+    hotels: [Hotel]
+    totalCost: Int
   }
   
   type User {

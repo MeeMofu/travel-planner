@@ -32,3 +32,19 @@ export const CHECK_EMAIL = gql`
     checkEmail(email:$email)
   }
 `;
+
+export const ADD_TRIP = gql`
+  mutation addTrip($tripData: TripInput!){
+    addTrip (tripData:$tripData) {
+      _id
+      username
+      email
+      trips {
+        title
+        startDate
+        endDate
+        goal
+      }
+    }
+  }
+`;
