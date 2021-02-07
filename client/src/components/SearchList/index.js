@@ -28,8 +28,10 @@ const SearchList = ({searchResult}) =>{
         setOffset((activePage-1)*5);
     }
 
-    return (<div className="searchList">
-        <Accordion fluid styled>
+    return (
+        <div className="searchList">
+            <div className={"py-3"} >
+                <Accordion fluid styled>
             {toBeDisplayed.map((result, index) =>{
                 if (result.type === "flight-offer")
                     return (
@@ -43,6 +45,8 @@ const SearchList = ({searchResult}) =>{
                     return <div />
             })}
         </Accordion>
+            </div>
+        
         {(searchResult.length>5)?(
             <Pagination
                 activePage={activeButton}

@@ -37,7 +37,7 @@ const LoginForm = ()=>{
 
     const handleSubmit = async (e)=>{
         e.preventDefault();
-        console.log(userFormData);
+        // console.log(userFormData);
         setLoading(true);
         try {
             const response = await signupUser(
@@ -46,7 +46,7 @@ const LoginForm = ()=>{
               });
               
             const token= response.data.addUser.token;
-            console.log(token);
+            // console.log(token);
             Auth.login(token);
             setOpen(false);
         } catch (err) {

@@ -26,8 +26,8 @@ const TripForm = ({userData, setUserData})=>{
     
     const handleSubmit = async (e)=>{
         e.preventDefault();
-        setLoading(true);
         if (tripData.title && tripData.endDate && tripData.startDate){
+            setLoading(true);
             try {
                 const {data: {addTrip}} = await createTrip(
                     {
@@ -36,30 +36,12 @@ const TripForm = ({userData, setUserData})=>{
                 )
                 setLoading(false);
                 setOpen(false);
-                console.log(addTrip);
+                // console.log(addTrip);
                 setUserData({...userData, ...addTrip});
             } catch (err){
                 alert("Something went wrong");
             }
-            // setTripData({...tripData,startDate: moment(tripData.startDate,"YYYY MM DD").format("ll")});
         }
-        // console.log(tripData);
-        // e.preventDefault();
-        // setLoading(true);
-        // try {
-        //     const response = await loginUser(
-        //       { 
-        //         variables: {...tripData}
-        //       });
-              
-        //     const token= response.data.login.token;
-        //     // console.log(token);
-        //     Auth.login(token);
-        //     setOpen(false);
-        // } catch (err) {
-        //     setLoading(false);
-        //     setShowAlert(true);
-        // }
     }
     const handleInput = (event) => {
         const { name, value } = event.target;
@@ -70,7 +52,7 @@ const TripForm = ({userData, setUserData})=>{
         <Modal onClose={() => setOpen(false)}
         onOpen={() => setOpen(true)}
         open={open} style={inlineStyle.modal}
-        trigger={<Button color = {'grey'}> + Add Trip</Button> }>
+        trigger={<Button color = {'green'} className={'mb-5'}> + Add Trip</Button> }>
             <Modal.Content>
                 <Form loading={isLoading}>
                     <Form.Field

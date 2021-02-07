@@ -28,20 +28,16 @@ const AirportSearch = ({type, name, amadeus, searchData, setSearchData})=>{
             }).then(({data})=>{
                 if (data.length){
                     setError(false);
-                    try {
-                        // Try to if it can map the result
-                        const resultOptions = data.map((option)=>{
-                            return {key: option.id, 
+                    const cleanedData = data.filter(airport => airports.findWhere({ iata: airport.iataCode }));
+                    // Use filter to find results that is an airport, as it might return a city, or airport that is not available in database
+                    const resultOptions = cleanedData.map((option)=>{
+                        return {key: option.id, 
                                 text: `${airports.findWhere({ iata: option.iataCode }).get('name')} (${option.iataCode})`,
                                 value: option.iataCode
                             }
-                        });  
-                        setOptions(resultOptions);
-                    } catch (error) {
-                        // If the search result can't be found, let user know
-                        setError({ content: 'No airport found with this search term' })
-                        
-                    }
+                    }); 
+                    if (resultOptions.length) setOptions(resultOptions);
+                    else setError({ content: 'No result found with this search term' });
                 }
                 else {
                     setOptions([{}]);

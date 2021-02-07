@@ -40,10 +40,30 @@ export const ADD_TRIP = gql`
       username
       email
       trips {
+        _id
         title
         startDate
         endDate
         goal
+        totalCost
+        flights{
+          _id
+          airline
+          departure
+          return
+          stops
+          duration
+          cost
+          people
+        }
+        hotels {
+          _id
+          name
+          startDate
+          endDate
+          cost
+          rooms
+        }
       }
     }
   }

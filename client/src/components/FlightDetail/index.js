@@ -1,5 +1,5 @@
-import React from 'react';
-import {Accordion, Icon} from 'semantic-ui-react';
+import React, {useState} from 'react';
+import {Accordion, Icon, Button,Popup} from 'semantic-ui-react';
 import SingleTrip from './SingleTrip';
 import {durationFormater} from '../../utils/helpers';
 
@@ -8,6 +8,9 @@ import {durationFormater} from '../../utils/helpers';
 const FlightDetail = ({flightResult, activeIndex, setActiveIndex})=>{
     const airlines = require('airline-codes');
     const {id, itineraries, price: {grandTotal, currency},validatingAirlineCodes} = flightResult;
+
+        // Temporary popup
+        const [open, setOpen] = useState(false)
     
     const handleClick = (e,{index}) =>{
         const newIndex = (activeIndex === index)? -1 : index;
@@ -39,6 +42,15 @@ const FlightDetail = ({flightResult, activeIndex, setActiveIndex})=>{
                         <SingleTrip itinerary={itineraries[1]}/>
                     </>
                 ):''}
+                <Popup
+                    content='Will be added later'
+                    on='click'
+                    onClose={() => setOpen(false)}
+                    onOpen={() => setOpen(true)}
+                    open={open}
+                    position='top left'
+                    trigger={<Button content={'Save'}/>}
+                />
             </Accordion.Content>
         </>
     );

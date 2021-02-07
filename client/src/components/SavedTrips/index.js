@@ -2,12 +2,13 @@ import React,{useState,useEffect} from 'react';
 import {QUERY_ME} from '../../utils/queries';
 import {useQuery} from '@apollo/react-hooks';
 import CreateTrip from '../CreateTrip';
+import { Loader,Divider } from 'semantic-ui-react'
+import SingleTrip from '../SingleTrip';
 
-
-
-const SavedTrips= () =>{
+const SavedTrips= ({amadeus}) =>{
     const {loading, data} = useQuery(QUERY_ME);
     const [userData, setUserData]=useState({});
+    
     useEffect(()=>{
         // Check if data is avaliable
         if (data) {
@@ -16,13 +17,18 @@ const SavedTrips= () =>{
         } 
     },[data]);
 
-    useEffect(()=>{
-        console.log(userData);
-    })
+    // useEffect(()=>{
+    //     console.log(userData);
+    // })
+    if (loading || !userData.trips) return <Loader active inline='centered' />
 
     return (
         <>
-              <CreateTrip userData={userData} setUserData={setUserData}/>
+            {userData.trips.map((trip) =>{
+                return <SingleTrip trip={trip} amadeus={amadeus} key={trip._id}/>
+            })}
+            {userData.trips.length? <Divider  className='py-2'/>: <></>}
+            <CreateTrip userData={userData} setUserData={setUserData}/> 
         
         </>
     )

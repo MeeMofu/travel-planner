@@ -46,7 +46,7 @@ const FlightSearchForm = ({amadeus, setSearchResult})=>{
             setLoading(true);
             amadeus.shopping.flightOffersSearch.get(searchData)
                 .then(({data}) => {
-                    console.log(data);
+                    // console.log(data);
                     // clean up duplicate price options, as the API has sorted the cheapest with shortest travel time option first
                     // duplicate option is redundant
                     const cleanedData = data.filter((option, index)=>(

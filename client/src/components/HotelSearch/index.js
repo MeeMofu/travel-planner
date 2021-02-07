@@ -31,7 +31,6 @@ const HotelSearchForm = ({amadeus, setSearchResult})=>{
             setLoading(true);
             amadeus.shopping.hotelOffers.get(searchData)
                 .then(({data}) => {
-                    console.log(data);
                     // clean up duplicate price options, as the API has sorted the cheapest with shortest travel time option first
                     // duplicate option is redundant
                     setLoading(false);
@@ -47,7 +46,7 @@ const HotelSearchForm = ({amadeus, setSearchResult})=>{
                     setError(true);
                 });
         // }
-        console.log(searchData);
+        // console.log(searchData);
     }
 
     const rating = [2,3,4,5];
