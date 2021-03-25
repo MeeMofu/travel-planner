@@ -46,14 +46,14 @@ const SingleTrip = ({trip, tripsData, setUserData, amadeus}) => {
             </div>
             <div className={"card-body"}>
                 <div className={"row"}>
-                    <div className="col-6">
+                    <div className={(hotels.length>0) ? "col-12 col-md-6":"col-12"}>
                         {(flights.length>0) &&
                         <>
                             <h2 className={"m-0"}>Flights:</h2>
                             <DisplayList contentList={flights} tripsData={tripsData} setUserData={setUserData} tripID={_id} className={"p-5"}/>
                         </>}
                     </div>
-                    <div className="col-6">
+                    <div className={(flights.length>0) ? "col-12 col-md-6":"col-12"}>
                         {(hotels.length>0) &&
                         <>
 

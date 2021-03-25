@@ -11,8 +11,14 @@ export function durationFormater(duration) {
   // Remove PT at start and split into hour and minutes
   // Can't use moment due to it's format
   const time = duration.slice(2).split("H");
-  const min = time[1].replace("M","");
-  return `${time[0]}h ${ min ? min :'00'}m`
+  if (time[1]){
+    const min = time[1].replace("M","");
+    return `${time[0]}h ${ min ? min :'00'}m`
+  } else {
+    
+    return duration.slice(2).toLowerCase();
+  }
+
 }
 
 export function timeFormater(time) {

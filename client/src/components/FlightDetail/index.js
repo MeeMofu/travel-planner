@@ -62,17 +62,31 @@ const FlightDetail = ({flightResult, activeIndex, setActiveIndex, tripID})=>{
             </Accordion.Title>
             <Accordion.Content active={activeIndex === id}>
                 {/* Departure and returning */}
-                <h3>Departure: </h3> {durationFormater(itineraries[0].duration)}{' '}
-                {itineraries[0].segments.length === 1?'Nonstop':`${itineraries[0].segments.length-1} stop`}{' '}
-                <SingleTrip itinerary={itineraries[0]}/>
-                {/* Return trip if there's more than 1 intinerary */}
-                {itineraries[1]?(
-                    <>
-                        <h3>Return: </h3> {durationFormater(itineraries[1].duration)}{' '}
-                        {itineraries[1].segments.length === 1?'Nonstop':`${itineraries[1].segments.length-1} stop`}{' '}
-                        <SingleTrip itinerary={itineraries[1]}/>
-                    </>
-                ):''}<Button content={'Save'} onClick={handleSave}/>
+                <div className={"row"}>
+                    <div className={(itineraries[1]? "col-12 col-md-6":"col-12")}>
+                        <div className={"d-flex justify-content-between m-0"}>
+                            <h3 className={"m-0"}>Departure: </h3> 
+                            <p className={"text-right"}>{durationFormater(itineraries[0].duration)}{' '}{itineraries[0].segments.length === 1?'Nonstop':`${itineraries[0].segments.length-1} stop`}{' '}</p>
+                        </div>
+                        
+                        <SingleTrip itinerary={itineraries[0]}/>
+                    </div>
+                    {/* Return trip if there's more than 1 intinerary */}
+                    {itineraries[1]?(
+                        <div className={"col-12 col-md-6"}>
+                            <div className={"d-flex justify-content-between m-0"}>
+                                <h3 className={"m-0"}>Return: </h3> 
+                                <p className={"text-right"}>{durationFormater(itineraries[1].duration)}{' '}{itineraries[1].segments.length === 1?'Nonstop':`${itineraries[1].segments.length-1} stop`}{' '}</p>
+                            </div>
+                            <SingleTrip itinerary={itineraries[1]}/>
+                        </div>
+                    ):''}
+                </div>
+                
+                <div className={"text-right"}>
+                <Button content={'Save'} onClick={handleSave}/>
+
+                </div>
                 
             </Accordion.Content>
         </>
