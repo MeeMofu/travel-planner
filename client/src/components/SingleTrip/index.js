@@ -1,22 +1,31 @@
 import React,{useState,useEffect} from 'react';
+import {useMutation} from '@apollo/react-hooks';
+import {REMOVE_TRIP} from '../../utils/mutations'; 
 import moment from 'moment';
 import FlightSearchForm from '../FlightSearch';
 import HotelSearchForm from '../HotelSearch';
 import DisplayList from '../DisplayList';
-import {Divider,Popup, Button} from 'semantic-ui-react';
+import {Divider, Button} from 'semantic-ui-react';
 
-const SingleTrip = ({trip, amadeus}) => {
+const SingleTrip = ({trip, tripsData, setUserData, amadeus}) => {
     
-    const {_id,title,startDate,endDate,goal,totalCost} = trip;
+    const {_id,title,startDate,endDate,goal,totalCost,flights, hotels} = trip;
     const [searchResult, setSearchResult] = useState([]);
     const [isVisible, setVisible] = useState(false);
 
-    // Temporary popup
-    const [open, setOpen] = useState(false)
-    
+    const [removeTrip] = useMutation(REMOVE_TRIP);
+
     useEffect(()=>{
       (searchResult.length)? setVisible(true): setVisible(false)
     },[searchResult]);
+
+    const handleDeleteTrip= async()=>{
+        await removeTrip({
+            variables: {id:_id}
+        })
+        const updatedTrips = tripsData.filter(trip => trip._id !== _id );
+        setUserData({...tripsData, trips: updatedTrips});
+    }
     
     return (
         <>
@@ -25,15 +34,7 @@ const SingleTrip = ({trip, amadeus}) => {
                 <div className={"d-flex justify-content-between m-0"}>
                     <h2>{title}</h2>
                     <div>
-                    <Popup
-                        content='Will be added later'
-                        on='click'
-                        onClose={() => setOpen(false)}
-                        onOpen={() => setOpen(true)}
-                        open={open}
-                        position='bottom right'
-                        trigger={<Button circular icon='trash'/>}
-                    />
+                        <Button circular icon='trash' onClick={handleDeleteTrip}/>
                     </div>
                 </div>
                 <div>{`${moment(startDate,"YYYY MM DD").format("ll")} to ${moment(endDate,"YYYY MM DD").format("ll")}`}</div>
@@ -41,6 +42,16 @@ const SingleTrip = ({trip, amadeus}) => {
             <div className={"card-body"}>
                 <div><span style={{fontWeight: 'bold'}}>Total Cost: </span> {totalCost}</div>
                 {goal? <p className={"pt-2"}><span style={{fontWeight: 'bold'}}>Goals: </span>{goal}</p>:<></>}
+                {(flights.length>0) &&
+                <>
+                    <h3>Flights</h3>
+                    <DisplayList contentList={flights} tripsData={tripsData} setUserData={setUserData} tripID={_id}/>
+                </>}
+                {(hotels.length>0) &&
+                <>
+                    <h3>Hotels</h3>
+                    <DisplayList contentList={hotels} tripsData={tripsData} setUserData={setUserData} tripID={_id}/>
+                </>}
                 <Divider horizontal>+ Add to your trip</Divider>
                 <div className={"text-center"}>
                     <FlightSearchForm amadeus={amadeus} setSearchResult={setSearchResult}/>
@@ -48,7 +59,7 @@ const SingleTrip = ({trip, amadeus}) => {
                 </div>
                 
 
-                {isVisible?(<DisplayList contentList={searchResult} amadeus={amadeus}/>):(<></>)}
+                {isVisible?(<DisplayList contentList={searchResult} tripsData={tripsData} setUserData={setUserData} tripID={_id} amadeus={amadeus} />):(<></>)}
             </div>
         </div>
         

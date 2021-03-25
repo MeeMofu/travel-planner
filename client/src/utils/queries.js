@@ -14,6 +14,7 @@ export const QUERY_ME = gql`
         goal
         totalCost
         flights{
+          type
           _id
           airline
           departure
@@ -24,6 +25,7 @@ export const QUERY_ME = gql`
           people
         }
         hotels {
+          type
           _id
           name
           startDate

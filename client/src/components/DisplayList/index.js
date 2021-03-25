@@ -1,9 +1,12 @@
+import { set } from 'airport-codes';
 import React, { useState, useEffect } from 'react';
 import {Pagination, Accordion} from 'semantic-ui-react';
 import FlightDetail from '../FlightDetail';
 import HotelDetail from '../HotelDetail';
+import FlightMin from '../MinDisplay/FlightMin';
+import HotelMin from '../MinDisplay/HotelMin';
 
-const DisplayList = ({contentList}) =>{
+const DisplayList = ({contentList, tripsData, tripID, setUserData}) =>{
     const [searchOffset,setOffset] = useState(0);
     const [activeButton,setActive] = useState(1);
     const [activeIndex,setActiveIndex] = useState(-1);
@@ -16,6 +19,7 @@ const DisplayList = ({contentList}) =>{
     },[searchOffset]);
     useEffect(()=>{
         setOffset(0);
+        setToBeDisplayed(contentList.slice(0,5));
     },[contentList])
 
     // useEffect(()=>{
@@ -34,17 +38,49 @@ const DisplayList = ({contentList}) =>{
                 <Accordion fluid styled>
             {toBeDisplayed.map((content, index) =>{
                 // I've tried switch statement, however, it doesn't seems to detect if the contentList has changed, as in when the contentList is updated, switch statement doesn't update the content
-                // This is important as this display list is reused to display flight & hotel offer that'll be change whenever the user makes a new search
-                if (content.type === "flight-offer")
-                    return (
-                        <FlightDetail flightResult={content} key={`${content.type}_${content.id}`} activeIndex={activeIndex} setActiveIndex={setActiveIndex}/>
-                    )
-                else if ((content.type === "hotel-offers"))
-                    return (
-                        <HotelDetail id={index} hotelResult={content} key={`${content.type}_${content.hotel.hotelId}`} activeIndex={activeIndex} setActiveIndex={setActiveIndex}/>
-                    )
-                else
-                    return <div />
+                // This is important as this display list is reused to display flight & hotel offer that'll be change whenever the user makes a new search or add/remove saved ones
+                switch (content.type) {
+                    case "flight-offer":
+                        return <FlightDetail flightResult={content} key={`${content.type}_${content.id}`} 
+                                activeIndex={activeIndex} setActiveIndex={setActiveIndex} setToBeDisplayed={setToBeDisplayed}
+                                tripsData={tripsData} tripID={tripID} setUserData={setUserData}/>
+                    case "hotel-offers":
+                        return <HotelDetail id={index} hotelResult={content} key={`${content.type}_${content.hotel.hotelId}`}
+                                activeIndex={activeIndex} setActiveIndex={setActiveIndex} setToBeDisplayed={setToBeDisplayed}
+                                tripsData={tripsData} tripID={tripID} setUserData={setUserData}/>
+                    case "saved-flight":
+                        return <FlightMin id={index} savedDetail={content} key={`${content.type}_${content._id}`}
+                                activeIndex={activeIndex} setActiveIndex={setActiveIndex} 
+                                tripsData={tripsData} tripID={tripID} setUserData={setUserData}/>
+                    case "saved-hotel":
+                        return <HotelMin id={index} savedDetail={content} key={`${content.type}_${content._id}`}
+                        activeIndex={activeIndex} setActiveIndex={setActiveIndex}
+                        tripsData={tripsData} tripID={tripID} setUserData={setUserData}/>
+                    default:
+                        return <></>
+                }
+                // if (content.type === "flight-offer")
+                    
+                // else if ((content.type === "hotel-offers"))
+                //     return (
+                //         <HotelDetail id={index} hotelResult={content} key={`${content.type}_${content.hotel.hotelId}`}
+                //             activeIndex={activeIndex} setActiveIndex={setActiveIndex}
+                //             tripsData={tripsData} tripID={tripID} setUserData={setUserData}/>
+                //     )
+                // else if ((content.type === "saved-flight"))
+                //     return  (
+                //         <FlightMin id={index} savedDetail={content} key={`${content.type}_${content._id}`}
+                //             activeIndex={activeIndex} setActiveIndex={setActiveIndex} 
+                //             tripsData={tripsData} tripID={tripID} setUserData={setUserData}/>
+                //     )
+                // else if ((content.type === "saved-hotel"))
+                //     return  (
+                //         <HotelMin id={index} savedDetail={content} key={`${content.type}_${content._id}`}
+                //             activeIndex={activeIndex} setActiveIndex={setActiveIndex}
+                //             tripsData={tripsData} tripID={tripID} setUserData={setUserData}/>
+                //     )
+                // else
+                //     return <div />
             })}
         </Accordion>
             </div>

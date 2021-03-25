@@ -25,7 +25,7 @@ const SavedTrips= ({amadeus}) =>{
     return (
         <>
             {userData.trips.map((trip) =>{
-                return <SingleTrip trip={trip} amadeus={amadeus} key={trip._id}/>
+                return <SingleTrip tripsData={userData.trips} setUserData={setUserData} trip={trip} amadeus={amadeus} key={trip._id}/>
             })}
             {userData.trips.length? <Divider  className='py-2'/>: <></>}
             <CreateTrip userData={userData} setUserData={setUserData}/> 

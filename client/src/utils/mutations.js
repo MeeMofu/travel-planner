@@ -68,3 +68,27 @@ export const ADD_TRIP = gql`
     }
   }
 `;
+export const REMOVE_TRIP = gql`
+  mutation removeTrip($id: ID!){
+    removeTrip (id:$id) {
+    message
+    error
+    }
+  }
+`
+export const REMOVE_FLIGHT = gql`
+  mutation removeFlight($id: ID!){
+    removeFlight (id:$id) {
+    message
+    error
+    }
+  }
+`
+export const REMOVE_HOTEL = gql`
+  mutation removeHotel($id: ID!){
+    removeHotel (id:$id) {
+    message
+    error
+    }
+  }
+`
