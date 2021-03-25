@@ -32,26 +32,39 @@ const SingleTrip = ({trip, tripsData, setUserData, amadeus}) => {
         <div className={"card text-left my-4"}>
             <div className={"card-header"}>
                 <div className={"d-flex justify-content-between m-0"}>
-                    <h2>{title}</h2>
+                    <h1>{title}</h1>
                     <div>
-                        <Button circular icon='trash' onClick={handleDeleteTrip}/>
+                        <Button circular icon='trash' onClick={handleDeleteTrip}  size='mini'/>
                     </div>
                 </div>
-                <div>{`${moment(startDate,"YYYY MM DD").format("ll")} to ${moment(endDate,"YYYY MM DD").format("ll")}`}</div>
+                <div className={"d-flex justify-content-between m-0"}>
+                    <div><span style={{fontWeight: 'bold'}}>Duration: </span>{`${moment(startDate,"YYYY MM DD").format("ll")} to ${moment(endDate,"YYYY MM DD").format("ll")}`}</div>
+                    <div><span style={{fontWeight: 'bold'}}>Total Cost: </span> {totalCost} USD</div>
+                </div>
+                {goal? <p className={"pt-2"}><span style={{fontWeight: 'bold'}}>Goals: </span>{goal}</p>:<></>}
+                
             </div>
             <div className={"card-body"}>
-                <div><span style={{fontWeight: 'bold'}}>Total Cost: </span> {totalCost}</div>
-                {goal? <p className={"pt-2"}><span style={{fontWeight: 'bold'}}>Goals: </span>{goal}</p>:<></>}
-                {(flights.length>0) &&
-                <>
-                    <h3>Flights</h3>
-                    <DisplayList contentList={flights} tripsData={tripsData} setUserData={setUserData} tripID={_id}/>
-                </>}
-                {(hotels.length>0) &&
-                <>
-                    <h3>Hotels</h3>
-                    <DisplayList contentList={hotels} tripsData={tripsData} setUserData={setUserData} tripID={_id}/>
-                </>}
+                <div className={"row"}>
+                    <div className="col-6">
+                        {(flights.length>0) &&
+                        <>
+                            <h2 className={"m-0"}>Flights:</h2>
+                            <DisplayList contentList={flights} tripsData={tripsData} setUserData={setUserData} tripID={_id} className={"p-5"}/>
+                        </>}
+                    </div>
+                    <div className="col-6">
+                        {(hotels.length>0) &&
+                        <>
+
+                            <h2 className={"m-0"}>Hotels:</h2>
+                            <DisplayList contentList={hotels} tripsData={tripsData} setUserData={setUserData} tripID={_id}/>
+                        </>}
+                    </div>
+                </div>
+
+                
+                
                 <Divider horizontal>+ Add to your trip</Divider>
                 <div className={"text-center"}>
                     <FlightSearchForm amadeus={amadeus} setSearchResult={setSearchResult}/>

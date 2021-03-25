@@ -59,40 +59,24 @@ const DisplayList = ({contentList, tripsData, tripID, setUserData}) =>{
                     default:
                         return <></>
                 }
-                // if (content.type === "flight-offer")
-                    
-                // else if ((content.type === "hotel-offers"))
-                //     return (
-                //         <HotelDetail id={index} hotelResult={content} key={`${content.type}_${content.hotel.hotelId}`}
-                //             activeIndex={activeIndex} setActiveIndex={setActiveIndex}
-                //             tripsData={tripsData} tripID={tripID} setUserData={setUserData}/>
-                //     )
-                // else if ((content.type === "saved-flight"))
-                //     return  (
-                //         <FlightMin id={index} savedDetail={content} key={`${content.type}_${content._id}`}
-                //             activeIndex={activeIndex} setActiveIndex={setActiveIndex} 
-                //             tripsData={tripsData} tripID={tripID} setUserData={setUserData}/>
-                //     )
-                // else if ((content.type === "saved-hotel"))
-                //     return  (
-                //         <HotelMin id={index} savedDetail={content} key={`${content.type}_${content._id}`}
-                //             activeIndex={activeIndex} setActiveIndex={setActiveIndex}
-                //             tripsData={tripsData} tripID={tripID} setUserData={setUserData}/>
-                //     )
-                // else
-                //     return <div />
+                
             })}
         </Accordion>
             </div>
         
-        {(contentList.length>5)?(
-            <Pagination
+        {(contentList.length>5) && (
+            <div className={"text-right"}>
+                 <Pagination
                 activePage={activeButton}
                 onPageChange={handlePageClick}
                 totalPages={Math.ceil(contentList.length/5)}
-            />)
-            :
-            (<></>)
+                boundaryRange={0}
+                ellipsisItem={null}
+                firstItem={null}
+                lastItem={null}
+            />
+            </div>)
+           
         }
         
        

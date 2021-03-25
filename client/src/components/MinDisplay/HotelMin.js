@@ -22,16 +22,6 @@ const HotelMin = ({savedDetail, activeIndex, setActiveIndex, id, tripsData, setU
                 TripId: tripID
             }}
         })
-        // const updatedTrips = tripsData.map(trip => {
-        //     // look in each trips for the matching trip ID
-        //     if (trip._id === tripID){
-        //         const updatedHotels = trip.hotels.filter(hotel => hotel._id !== _id );
-        //         trip = {...trip,  hotels: updatedHotels};
-        //     }        
-        //     return trip
-        // })
-        
-        // setUserData({...tripsData, trips:updatedTrips});
     }
 
     return (
