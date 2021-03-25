@@ -1,4 +1,5 @@
 const { AuthenticationError } = require('apollo-server-express');
+const { response } = require('express');
 const { User, Trip, Flight, Hotel} = require('../models');
 const { signToken } = require('../utils/auth');
 
@@ -18,6 +19,9 @@ const resolvers = {
           return userData;
         }
         throw new AuthenticationError('Not logged in');
+    },
+    flights: async() =>{
+      return Flight.find()
     }
 },
   
@@ -97,6 +101,50 @@ const resolvers = {
           {new: true}
           ).populate('hotels');
         return updatedTrip;
+      }
+
+      throw new AuthenticationError('You needed to be logged in');
+    },
+    removeFlight: async(parent, {id}, context) => {
+      if (context.user){
+        const result = await Flight.findOneAndDelete({_id:id});
+        if(!result){
+          response.message= 'No flight with this ID';
+          response.error = 404;
+        } 
+        else response.message = 'Successfully deleted flight'
+        return response;
+      }
+
+      throw new AuthenticationError('You needed to be logged in');
+    },
+    removeHotel: async(parent, {id}, context) => {
+      if (context.user){
+        const result = await Hotel.findOneAndDelete({_id:id});
+        if(!result){
+          response.message= 'No hotel with this ID';
+          response.error = 404;
+        } 
+        else response.message = 'Successfully deleted hotel'
+        return response;
+      }
+
+      throw new AuthenticationError('You needed to be logged in');
+    },
+    removeTrip: async(parent, {id}, context) => {
+      if (context.user){
+        const result = await Trip.findOneAndDelete({_id:id});
+        if(!result){
+          response.message= 'No trip with such ID';
+          response.error = 404;
+        } 
+        else {
+          response.message = 'Successfully deleted trip'
+          // remove flights and hotel related to the trip
+          await Flight.deleteMany({_id: {$in: result.flights}});
+          await Hotel.deleteMany({_id: {$in: result.hotels}});
+        }
+        return response;
       }
 
       throw new AuthenticationError('You needed to be logged in');

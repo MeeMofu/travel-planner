@@ -74,8 +74,14 @@ const typeDefs = gql`
     user: User
   }
 
+  type removeResponse {
+    message: String
+    error: Int
+  }
+
   type Query {
     me:User
+    flights:[Flight]
   }
 
   type Mutation {
@@ -86,6 +92,9 @@ const typeDefs = gql`
     addTrip(tripData: TripInput!): User
     addFlight(flightData: FlightInput!): Trip
     addHotel(hotelData: HotelInput!): Trip
+    removeFlight(id: ID!): removeResponse
+    removeHotel(id: ID!): removeResponse
+    removeTrip(id: ID!): removeResponse
   }
 `;
 
