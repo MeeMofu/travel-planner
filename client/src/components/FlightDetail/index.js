@@ -7,7 +7,7 @@ import {durationFormater} from '../../utils/helpers';
 
 const FlightDetail = ({flightResult, activeIndex, setActiveIndex})=>{
     const airlines = require('airline-codes');
-    const {id, itineraries, price: {grandTotal, currency},validatingAirlineCodes} = flightResult;
+    const {id, itineraries, price: {grandTotal, currency} = {},validatingAirlineCodes} = flightResult;
 
         // Temporary popup
         const [open, setOpen] = useState(false)

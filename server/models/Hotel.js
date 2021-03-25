@@ -3,6 +3,10 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const hotelSchema = new Schema({
+  type: {
+    type: String,
+    default:'saved-hotel'
+  },
   name: {
     type: String,
     required: true,

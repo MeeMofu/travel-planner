@@ -8,7 +8,7 @@ const SingleTrip = ({itinerary})=>{
     return (
         <>
             {flights.map(flight =>{
-                const {aircraft: {code}, departure, arrival, duration, id} = flight;
+                const {aircraft: {code} = {}, departure, arrival, duration, id} = flight;
                 return(
                     <div key={`flight_${id}`}>
                         <p>{timeFormater(departure.at)}{' '}{`${airports.findWhere({ iata: departure.iataCode }).get('name')} (${departure.iataCode})`}{departure.terminal?`, terminal: ${departure.terminal}`:''}</p>

@@ -2,7 +2,7 @@ import React,{useState,useEffect} from 'react';
 import moment from 'moment';
 import FlightSearchForm from '../FlightSearch';
 import HotelSearchForm from '../HotelSearch';
-import SearchList from '../SearchList';
+import DisplayList from '../DisplayList';
 import {Divider,Popup, Button} from 'semantic-ui-react';
 
 const SingleTrip = ({trip, amadeus}) => {
@@ -48,7 +48,7 @@ const SingleTrip = ({trip, amadeus}) => {
                 </div>
                 
 
-                {isVisible?(<SearchList searchResult={searchResult} amadeus={amadeus}/>):(<></>)}
+                {isVisible?(<DisplayList contentList={searchResult} amadeus={amadeus}/>):(<></>)}
             </div>
         </div>
         

@@ -1,5 +1,5 @@
 const { AuthenticationError } = require('apollo-server-express');
-const { User, Trip} = require('../models');
+const { User, Trip, Flight, Hotel} = require('../models');
 const { signToken } = require('../utils/auth');
 
 const resolvers = {
@@ -8,8 +8,12 @@ const resolvers = {
     me: async (parent, args, context) => {
         if (context.user) {
           const userData = await User.findOne({ _id: context.user._id })
-            .select('-__v -password').populate('trips');
-            // .populate('savedBooks')
+            .select('-__v -password')
+              .populate({
+                path:'trips',
+                populate: 'flights hotels'
+              });
+            
   
           return userData;
         }
@@ -64,6 +68,35 @@ const resolvers = {
           {new: true}
         ).populate('trips');
         return updatedUser;
+      }
+
+      throw new AuthenticationError('You needed to be logged in');
+    },
+    addFlight: async (parent, {flightData}, context) => {
+      // console.log(context);
+      if (context.user){
+        const newFlight = await Flight.create({...flightData});
+        // console.log(newFlight);
+        const updatedTrip = await Trip.findByIdAndUpdate(
+          {_id: flightData.tripId},
+          {$push: {flights: newFlight._id}},
+          {new: true}
+          ).populate('flights');
+        return updatedTrip;
+      }
+
+      throw new AuthenticationError('You needed to be logged in');
+    },
+    addHotel: async (parent, {hotelData}, context) => {
+      // console.log(context);
+      if (context.user){
+        const newHotel = await Hotel.create({...hotelData});
+        const updatedTrip = await Trip.findByIdAndUpdate(
+          {_id: hotelData.tripId},
+          {$push: {hotels: newHotel._id}},
+          {new: true}
+          ).populate('hotels');
+        return updatedTrip;
       }
 
       throw new AuthenticationError('You needed to be logged in');

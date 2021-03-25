@@ -3,20 +3,20 @@ import {Pagination, Accordion} from 'semantic-ui-react';
 import FlightDetail from '../FlightDetail';
 import HotelDetail from '../HotelDetail';
 
-const SearchList = ({searchResult}) =>{
+const DisplayList = ({contentList}) =>{
     const [searchOffset,setOffset] = useState(0);
     const [activeButton,setActive] = useState(1);
     const [activeIndex,setActiveIndex] = useState(-1);
     
-    const defaultList = searchResult.slice(0,5);
+    const defaultList = contentList.slice(0,5);
     const [toBeDisplayed,setToBeDisplayed] = useState(defaultList);
 
     useEffect(()=>{
-        setToBeDisplayed(searchResult.slice(searchOffset,searchOffset+5));
+        setToBeDisplayed(contentList.slice(searchOffset,searchOffset+5));
     },[searchOffset]);
     useEffect(()=>{
         setOffset(0);
-    },[searchResult])
+    },[contentList])
 
     // useEffect(()=>{
     //     console.log(toBeDisplayed);
@@ -29,17 +29,19 @@ const SearchList = ({searchResult}) =>{
     }
 
     return (
-        <div className="searchList">
+        <div className="DisplayList">
             <div className={"py-3"} >
                 <Accordion fluid styled>
-            {toBeDisplayed.map((result, index) =>{
-                if (result.type === "flight-offer")
+            {toBeDisplayed.map((content, index) =>{
+                // I've tried switch statement, however, it doesn't seems to detect if the contentList has changed, as in when the contentList is updated, switch statement doesn't update the content
+                // This is important as this display list is reused to display flight & hotel offer that'll be change whenever the user makes a new search
+                if (content.type === "flight-offer")
                     return (
-                        <FlightDetail flightResult={result} key={`${result.type}_${result.id}`} activeIndex={activeIndex} setActiveIndex={setActiveIndex}/>
+                        <FlightDetail flightResult={content} key={`${content.type}_${content.id}`} activeIndex={activeIndex} setActiveIndex={setActiveIndex}/>
                     )
-                else if ((result.type === "hotel-offers"))
+                else if ((content.type === "hotel-offers"))
                     return (
-                        <HotelDetail id={index} hotelResult={result} key={`${result.type}_${result.hotel.hotelId}`} activeIndex={activeIndex} setActiveIndex={setActiveIndex}/>
+                        <HotelDetail id={index} hotelResult={content} key={`${content.type}_${content.hotel.hotelId}`} activeIndex={activeIndex} setActiveIndex={setActiveIndex}/>
                     )
                 else
                     return <div />
@@ -47,11 +49,11 @@ const SearchList = ({searchResult}) =>{
         </Accordion>
             </div>
         
-        {(searchResult.length>5)?(
+        {(contentList.length>5)?(
             <Pagination
                 activePage={activeButton}
                 onPageChange={handlePageClick}
-                totalPages={Math.ceil(searchResult.length/5)}
+                totalPages={Math.ceil(contentList.length/5)}
             />)
             :
             (<></>)
@@ -62,4 +64,4 @@ const SearchList = ({searchResult}) =>{
     );
 }
 
-export default SearchList;
+export default DisplayList;

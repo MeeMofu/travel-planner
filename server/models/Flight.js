@@ -3,6 +3,10 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const flightSchema = new Schema({
+  type: {
+    type: String,
+    default:'saved-flight'
+  },
   airline: {
     type: String,
     required: true,

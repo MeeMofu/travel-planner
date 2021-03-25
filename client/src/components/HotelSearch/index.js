@@ -85,7 +85,7 @@ const HotelSearchForm = ({amadeus, setSearchResult})=>{
                         isRequired/>
                     </Form.Group>
                     {/* <Form.Group widths='equal'> */}
-                    <div style={{fontWeight: 'bold', marginBottom:'10px'}}>Minimum rating: <Rating icon='star' defaultRating={1} maxRating={5} onRate={handleRate}/></div>
+                    {/* <div style={{fontWeight: 'bold', marginBottom:'10px'}}>Minimum rating: <Rating icon='star' defaultRating={1} maxRating={5} onRate={handleRate}/></div> */}
                     {error?(<Message negative header='Bad Request' content='Please check your request'/>):(<></>)}
                     {noResult?(<Message negative header='No matches' content="There's no hotel offer that matches your criteria"/>):(<></>)}
                     <Form.Field control={Button} color = {'blue'} onClick={handleSubmit}>Submit</Form.Field>

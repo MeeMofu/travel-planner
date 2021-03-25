@@ -9,8 +9,29 @@ const typeDefs = gql`
     goal: String
   }
 
+  input FlightInput {
+    tripId: ID!
+    airline: String
+    departure: String
+    return: String
+    stops: Int
+    duration: String
+    cost: Int
+    people: Int
+  }
+
+  input HotelInput {
+    tripId: ID!
+    name: String
+    startDate: String
+    endDate: String
+    cost: Int
+    rooms: Int
+  }
+
   type Flight {
     _id: ID
+    type: String
     airline: String
     departure: String
     return: String
@@ -22,6 +43,7 @@ const typeDefs = gql`
 
   type Hotel {
     _id: ID
+    type: String
     name: String
     startDate: String
     endDate: String
@@ -62,6 +84,8 @@ const typeDefs = gql`
     checkUsername(username: String!): Boolean
     checkEmail(email: String!): Boolean
     addTrip(tripData: TripInput!): User
+    addFlight(flightData: FlightInput!): Trip
+    addHotel(hotelData: HotelInput!): Trip
   }
 `;
 
