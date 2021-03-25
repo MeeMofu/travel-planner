@@ -14,7 +14,6 @@ const typeDefs = gql`
     airline: String
     departure: String
     return: String
-    stops: Int
     duration: String
     cost: Int
     people: Int
@@ -27,6 +26,11 @@ const typeDefs = gql`
     endDate: String
     cost: Int
     rooms: Int
+  }
+
+  input DeleteForm {
+    DeleteId: String
+    TripId: String
   }
 
   type Flight {
@@ -92,8 +96,8 @@ const typeDefs = gql`
     addTrip(tripData: TripInput!): User
     addFlight(flightData: FlightInput!): Trip
     addHotel(hotelData: HotelInput!): Trip
-    removeFlight(id: ID!): removeResponse
-    removeHotel(id: ID!): removeResponse
+    removeFlight(deleteField: DeleteForm!): Trip
+    removeHotel(deleteField: DeleteForm!): Trip
     removeTrip(id: ID!): removeResponse
   }
 `;

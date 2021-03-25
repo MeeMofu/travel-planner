@@ -105,27 +105,28 @@ const resolvers = {
 
       throw new AuthenticationError('You needed to be logged in');
     },
-    removeFlight: async(parent, {id}, context) => {
+    removeFlight: async(parent, {deleteField}, context) => {
       if (context.user){
-        const result = await Flight.findOneAndDelete({_id:id});
-        if(!result){
-          response.message= 'No flight with this ID';
-          response.error = 404;
-        } 
-        else response.message = 'Successfully deleted flight'
+        
+        await Flight.findOneAndDelete({
+          _id:deleteField.DeleteId
+        });
+        const response = await Trip.findOne({
+          _id:deleteField.TripId
+        }).populate('flights hotels');
         return response;
       }
 
       throw new AuthenticationError('You needed to be logged in');
     },
-    removeHotel: async(parent, {id}, context) => {
+    removeHotel: async(parent, {deleteField}, context) => {
       if (context.user){
-        const result = await Hotel.findOneAndDelete({_id:id});
-        if(!result){
-          response.message= 'No hotel with this ID';
-          response.error = 404;
-        } 
-        else response.message = 'Successfully deleted hotel'
+        await Hotel.findOneAndDelete({
+          _id:deleteField.DeleteId
+        });
+        const response = await Trip.findOne({
+          _id:deleteField.TripId
+        }).populate('flights hotels');
         return response;
       }
 

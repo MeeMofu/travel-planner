@@ -42,12 +42,12 @@ const DisplayList = ({contentList, tripsData, tripID, setUserData}) =>{
                 switch (content.type) {
                     case "flight-offer":
                         return <FlightDetail flightResult={content} key={`${content.type}_${content.id}`} 
-                                activeIndex={activeIndex} setActiveIndex={setActiveIndex} setToBeDisplayed={setToBeDisplayed}
-                                tripsData={tripsData} tripID={tripID} setUserData={setUserData}/>
+                                activeIndex={activeIndex} setActiveIndex={setActiveIndex}
+                                tripID={tripID}/>
                     case "hotel-offers":
                         return <HotelDetail id={index} hotelResult={content} key={`${content.type}_${content.hotel.hotelId}`}
-                                activeIndex={activeIndex} setActiveIndex={setActiveIndex} setToBeDisplayed={setToBeDisplayed}
-                                tripsData={tripsData} tripID={tripID} setUserData={setUserData}/>
+                                activeIndex={activeIndex} setActiveIndex={setActiveIndex}
+                                tripID={tripID}/>
                     case "saved-flight":
                         return <FlightMin id={index} savedDetail={content} key={`${content.type}_${content._id}`}
                                 activeIndex={activeIndex} setActiveIndex={setActiveIndex} 

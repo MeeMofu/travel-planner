@@ -16,24 +16,22 @@ const HotelMin = ({savedDetail, activeIndex, setActiveIndex, id, tripsData, setU
     }
 
     const handleDelete= async()=>{
-        await removeHotel({
-            variables: {id:_id}
+        const response = await removeHotel({
+            variables: {deleteField:{
+                DeleteId: _id,
+                TripId: tripID
+            }}
         })
-        const updatedTrips = tripsData.map(trip => {
-            // look in each trips for the matching trip ID
-            if (trip._id === tripID){
-                const updatedHotels = trip.hotels.filter(hotel => hotel._id !== _id );
-                // Find the removed hotel to get the cost
-                let newCost = trip.totalCost;
-                const removed =  trip.hotels.filter(hotel => hotel._id === _id );
-                
-                if (removed) newCost -= removed[0].cost;
-                trip = {...trip, totalCost: newCost, hotels: updatedHotels};
-            }        
-            return trip
-        })
+        // const updatedTrips = tripsData.map(trip => {
+        //     // look in each trips for the matching trip ID
+        //     if (trip._id === tripID){
+        //         const updatedHotels = trip.hotels.filter(hotel => hotel._id !== _id );
+        //         trip = {...trip,  hotels: updatedHotels};
+        //     }        
+        //     return trip
+        // })
         
-        setUserData({...tripsData, trips:updatedTrips});
+        // setUserData({...tripsData, trips:updatedTrips});
     }
 
     return (

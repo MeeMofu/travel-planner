@@ -14,24 +14,23 @@ const FlightMin = ({savedDetail, activeIndex, setActiveIndex, id, tripsData, set
     }
 
     const handleDelete= async()=>{
+
         await removeFlight({
-            variables: {id:_id}
+            variables: {deleteField:{
+                DeleteId: _id,
+                TripId: tripID
+            }}
         })
-        const updatedTrips = tripsData.map(trip => {
-            // look in each trips for the matching trip ID
-            if (trip._id === tripID){
-                const updatedFlights = trip.flights.filter(flight => flight._id !== _id );
-                // Find the removed flight to get the cost
-                let newCost = trip.totalCost;
-                const removed =  trip.flights.filter(flight => flight._id === _id );
-                
-                if (removed) newCost -= removed[0].cost;
-                trip = {...trip, totalCost: newCost, flights: updatedFlights};
-            }        
-            return trip
-        })
+        // const updatedTrips = tripsData.map(trip => {
+        //     // look in each trips for the matching trip ID
+        //     if (trip._id === tripID){
+        //         const updatedFlights = trip.flights.filter(flight => flight._id !== _id );
+        //         trip = {...trip, flights: updatedFlights};
+        //     }        
+        //     return trip
+        // })
         
-        setUserData({...tripsData, trips:updatedTrips});
+        // setUserData({...tripsData, trips:updatedTrips});
     }
 
     return (
@@ -39,12 +38,14 @@ const FlightMin = ({savedDetail, activeIndex, setActiveIndex, id, tripsData, set
             <Accordion.Title active = {activeIndex === id} index={id} onClick={handleClick}>
                 <Icon name='dropdown' />
                 {/* Header information */}
-                    {departure}{' - '}{returning} {cost}
+                    <div>{airline} {cost}</div>
                     <Button circular icon='trash' onClick={handleDelete}/>
             </Accordion.Title>
             <Accordion.Content active={activeIndex === id}>
-                <div>{airline} </div>
-                <div>{people} {people>1?' peoples':'person'}</div>
+                <p>Departing on: {departure}</p>
+                <p>Returning on: {returning} </p>
+                <p>Flight duration: duration</p>
+                <div>{people} passenger{people>1?'s':''}</div>
                 
                 
             </Accordion.Content>

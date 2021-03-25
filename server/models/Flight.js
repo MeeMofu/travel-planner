@@ -18,10 +18,6 @@ const flightSchema = new Schema({
   return: {
     type: String
   },
-  stops: {
-    type: Number,
-    required: true,
-  },
   duration: {
     type: String,
     required: true,

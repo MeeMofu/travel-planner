@@ -77,18 +77,77 @@ export const REMOVE_TRIP = gql`
   }
 `
 export const REMOVE_FLIGHT = gql`
-  mutation removeFlight($id: ID!){
-    removeFlight (id:$id) {
-    message
-    error
+  mutation removeFlight($deleteField: DeleteForm!){
+    removeFlight (deleteField:$deleteField) {
+      _id
+      totalCost
+      flights{
+        type
+        _id
+        airline
+        departure
+        return
+        stops
+        duration
+        cost
+        people
+      }
     }
   }
 `
 export const REMOVE_HOTEL = gql`
-  mutation removeHotel($id: ID!){
-    removeHotel (id:$id) {
-    message
-    error
+  mutation removeHotel($deleteField: DeleteForm!){
+    removeHotel (deleteField:$deleteField) {
+      _id
+      totalCost
+      hotels {
+        _id
+        name
+        startDate
+        endDate
+        cost
+        rooms
+      }
     }
   }
+`
+ export const ADD_FLIGHT = gql`
+ mutation addFlight($flightData: FlightInput!){
+  addFlight (flightData:$flightData) {
+    _id
+      
+      totalCost
+      flights{
+        type
+        _id
+        airline
+        departure
+        return
+        stops
+        duration
+        cost
+        people
+      }
+      
+  }
+}
+`
+
+export const ADD_HOTEL = gql`
+mutation addHotel($hotelData: HotelInput!){
+  addHotel (hotelData:$hotelData) {
+    _id
+    
+    totalCost
+      hotels {
+      _id
+      type
+      name
+      startDate
+      endDate
+      cost
+      rooms
+    }
+  }
+}
 `
