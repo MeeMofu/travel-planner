@@ -58,14 +58,14 @@ const FlightDetail = ({flightResult, activeIndex, setActiveIndex, tripID})=>{
                         return (i === validatingAirlineCodes.length-1)?airline : `${airline}, `
                     })}
 
-                    {' '}{grandTotal}{' '}{currency}
+                    {', '}{grandTotal}{' '}{currency}
             </Accordion.Title>
             <Accordion.Content active={activeIndex === id}>
                 {/* Departure and returning */}
                 <div className={"row"}>
                     <div className={(itineraries[1]? "col-12 col-md-6":"col-12")}>
                         <div className={"d-flex justify-content-between m-0"}>
-                            <h3 className={"m-0"}>Departure: </h3> 
+                            <h3>Departure: </h3> 
                             <p className={"text-right"}>{durationFormater(itineraries[0].duration)}{' '}{itineraries[0].segments.length === 1?'Nonstop':`${itineraries[0].segments.length-1} stop`}{' '}</p>
                         </div>
                         
@@ -75,7 +75,7 @@ const FlightDetail = ({flightResult, activeIndex, setActiveIndex, tripID})=>{
                     {itineraries[1]?(
                         <div className={"col-12 col-md-6"}>
                             <div className={"d-flex justify-content-between m-0"}>
-                                <h3 className={"m-0"}>Return: </h3> 
+                                <h3>Return: </h3> 
                                 <p className={"text-right"}>{durationFormater(itineraries[1].duration)}{' '}{itineraries[1].segments.length === 1?'Nonstop':`${itineraries[1].segments.length-1} stop`}{' '}</p>
                             </div>
                             <SingleTrip itinerary={itineraries[1]}/>

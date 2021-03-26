@@ -21,6 +21,8 @@ const FlightMin = ({savedDetail, activeIndex, setActiveIndex, id, tripsData, set
                 TripId: tripID
             }}
         })
+        setActiveIndex(-1);
+
     }
 
     return (
@@ -65,7 +67,7 @@ const FlightMin = ({savedDetail, activeIndex, setActiveIndex, id, tripsData, set
                 <p>Departing on: {departure}</p>
                 {(returning) && <p>Returning on: {returning} </p>} 
                 <p>Flight duration: {duration}</p>
-                <div>{people} passenger{people>1?'s':''}</div>
+                <p>{people} passenger{people>1?'s':''}</p>
             </div>
                 
                 

@@ -56,7 +56,10 @@ const HotelDetail = ({hotelResult, activeIndex, setActiveIndex, id, tripID})=>{
                 <p>Rating: {rating} star</p>
                 <p>Phone: {contact.phone}</p>
                 <p>Fax: {contact.fax}</p>
-                <Button content={'Save'} onClick={handleSave}/> 
+                <div className={"text-right"}>
+                <Button content={'Save'} onClick={handleSave}/>
+
+                </div>
             </Accordion.Content>
         </>
     );

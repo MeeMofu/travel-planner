@@ -57,6 +57,8 @@ const FlightSearchForm = ({amadeus, setSearchResult})=>{
                     if (cleanedData.length) {
                         setSearchResult(cleanedData);
                         setError(false);
+                        setNoResult(false);
+
                         setOpen(false);
                     }
                     else setNoResult(true)
@@ -113,7 +115,7 @@ const FlightSearchForm = ({amadeus, setSearchResult})=>{
                                 onChange={saveOption}
                             />
                         {error?(<Message negative header='Bad Request' content='Please check your request'/>):(<></>)}
-                        {noResult?(<Message negative header='No matches' content="There's no flights that matches your criteria"/>):(<></>)}
+                        {noResult?(<Message negative header='No matches' content="Current API use only support within the US"/>):(<></>)}
                         <Form.Field control={Button} color = {'blue'} onClick={handleSubmit}>Submit</Form.Field>
                     </Form>
               </Modal.Content>

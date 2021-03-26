@@ -10,12 +10,11 @@ const SingleTrip = ({itinerary})=>{
             {flights.map(flight =>{
                 const {aircraft: {code} = {}, departure, arrival, duration, id} = flight;
                 return(
-                    <div key={`flight_${id}`}>
-                        <p>{timeFormater(departure.at)}{' '}{`${airports.findWhere({ iata: departure.iataCode }).get('name')} (${departure.iataCode})`}{departure.terminal?`, terminal: ${departure.terminal}`:''}</p>
-                        <p> Travel time: {durationFormater(duration)}</p>
-                        <p>{timeFormater(arrival.at)}{' '}{`${airports.findWhere({ iata: arrival.iataCode }).get('name')} (${arrival.iataCode})`}{arrival.terminal?`, terminal: ${arrival.terminal}`:''}</p>
-                        <p>Aircraft code: {code} </p>
-                        <br />
+                    <div key={`flight_${id}`} className={"card"}>
+                        <div>{timeFormater(departure.at)}{' '}{`${airports.findWhere({ iata: departure.iataCode }).get('name')} (${departure.iataCode})`}{departure.terminal?`, terminal: ${departure.terminal}`:''}</div>
+                        <div> Travel time: {durationFormater(duration)}</div>
+                        <div>{timeFormater(arrival.at)}{' '}{`${airports.findWhere({ iata: arrival.iataCode }).get('name')} (${arrival.iataCode})`}{arrival.terminal?`, terminal: ${arrival.terminal}`:''}</div>
+                        <div>Aircraft code: {code} </div>
                         
                     </div>
                 )
