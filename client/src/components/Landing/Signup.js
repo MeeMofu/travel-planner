@@ -50,7 +50,7 @@ const LoginForm = ()=>{
             Auth.login(token);
             setOpen(false);
         } catch (err) {
-            console.log(err);
+            // console.log(err);
             setLoading(false);
             setShowAlert(true);
         }

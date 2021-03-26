@@ -7,10 +7,28 @@ Live URL: https://still-taiga-93727.herokuapp.com/
 
 # Desciption
 
-This app is a full MERN stack, designed to let users plan ahead of their travels. Once the user created an account, they can then create their own trips with customizable name and description. The user will then be presented with 2 buttons, allowing them to find flights and hotels they can book for their trip.
+This is a full MERN stack application, designed to let users plan ahead of their travels. Once the user created an account, they can then create their own trips with customizable name and description. The user will then be presented with 2 buttons, allowing them to find flights and hotels they can book for their trip. The total will be calculated and the saved flight and hotels can be removed.
 
-Due to limited time, some functionality of this website is not yet implemented. This include the function to add selected flight and/or hotels, as well as the ability to remove trips, flights, or hotel. Future implementation will also include the ability to toggle trip to edit mode or save mode, allowing the search buttons to be hidden if not needed.
+The server is build with [Express](https://www.npmjs.com/package/express) and [Apollo](https://www.npmjs.com/package/apollo-server-express), the database is [MongoDB](https://www.npmjs.com/package/mongodb). Finally the from-end is served with [React](https://www.npmjs.com/package/react), along with many npm package.
 
-Initially I thought that this app is small and doesn't require much components. As I was building the website, it kept getting more and more complex than I anticipated. I realized that some aspect of it I could've improved, such as creating global variables. This project give me insights to what it takes to create a React application, helping me more prepared for future projects.
+This app powered by [Amadeus](https://www.npmjs.com/package/amadeus), proving real life information. Unfortunately, the API doesn't return a link where users can book there flight and hotels. Another downside is that they can't return airports from outside the US (They do provide flights internationally, just the API point to search airport doesn't provide international airports). These functionality can be improved with more API.
 
-This application is built with MongoDB, Express, React and Node. Its interface is created with the help of Semantic UI and Bootstrap. Aditionally, the app uses a REST API to supply flight and hotel information to the user. The API is avaliable as a npm packet, making API request easier.
+## Installation
+
+To use this application, it's required to have node.js installed. Which can be found in their [website](https://nodejs.org/en/download/).
+
+Once you have cloned the files and had node.js installed, install the needed packages by:
+ 
+    npm install
+
+## Usage
+
+To start the application, just type the following into the command line in the base directory
+ 
+    npm start
+
+The server and the client will run on your local machine. The graphQL playground will be available on http://localhost:3001/graphql while the front end is available on http://localhost:3000/ 
+
+## Development notes
+
+This is my very first relatively large size react app, so I've greatly underestimated the size of the app. There's a large ammount of props drilling that should be reduced for better workflow. The code also have a lot of un-finished layout and unused values, but I'll have to skip it for now and focusing on optimizing the state usage.
